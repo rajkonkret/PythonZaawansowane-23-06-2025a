@@ -80,6 +80,8 @@ def my_for_map():
 def my_for_map_operator():
     l_map = list(map(partial(operator.mul, 2), lista2))
 
+
+
 my_for()
 # [LOG] Wywołąnie funkcji: my_for
 # [LOG] Argumenty: (), Argumenty nazwane: {}
@@ -103,3 +105,36 @@ my_for_map_operator()
 # [LOG] Argumenty: (), Argumenty nazwane: {}
 # [LOG] Wynik: None
 # [LOG] Czas wykonania: 0.8812 sekundy
+
+@log_and_time
+def slow_function():
+    print("Start slow_function()")
+    # time.sleep(1)
+    total = 0
+    for i in range(1, 1_000_000):
+        total += i ** 0.5
+    print("End slow_function()")
+    return total
+
+@log_and_time
+def fast_function():
+    print("Start fast_function()")
+    total = sum([i ** 0.5 for i in range(1, 1_000_000)])
+    print("End fast function()")
+    return total
+
+slow_function()
+fast_function()
+# [LOG] Wywołąnie funkcji: slow_function
+# [LOG] Argumenty: (), Argumenty nazwane: {}
+# Start slow_function()
+# End slow_function()
+# [LOG] Wynik: 666666166.4588418
+# [LOG] Czas wykonania: 1.1868 sekundy
+#
+# [LOG] Wywołąnie funkcji: fast_function
+# [LOG] Argumenty: (), Argumenty nazwane: {}
+# Start fast_function()
+# End fast function()
+# [LOG] Wynik: 666666166.4588221
+# [LOG] Czas wykonania: 0.2133 sekundy
