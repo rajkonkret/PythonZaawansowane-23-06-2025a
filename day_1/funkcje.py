@@ -59,4 +59,75 @@ def word_counter_collections_dict(text):
 
 
 print(word_counter_collections_dict("Hello world hello Python Python world Hello everybody"))
+
+
 # {'hello': 3, 'world': 2, 'python': 2, 'everybody': 1}
+
+# ominiecie problemu braku możliwości przeciązania funkcji
+def greet(name="Guest"):
+    return f"Hello {name}"
+
+
+print(greet())  # Hello Guest
+print(greet("Radek"))  # Hello Radek
+
+
+# funkcja przyjmująca args i kwargs
+def show_info(*args, **kwargs):
+    print(f"Argumenty pozycyjne (args): {args}")
+    print(f"Argumenty nazwane (kwargs): {kwargs}")
+
+
+show_info(1, 2, 3, 4, 5)  # Argumenty pozycyjne (args): (1, 2, 3, 4, 5) - krotka
+show_info(a=1, b=8, name="Radek")  # Argumenty nazwane (kwargs): {'a': 1, 'b': 8, 'name': 'Radek'} - słownik
+
+
+def create_order(client_name=None, *dishes, **extras):
+    print(f"Zamowienie dla {client_name}")
+
+    if dishes:
+        print("Zamówienie dnia:")
+        for dish in dishes:
+            print(f" - {dish}")
+
+    else:
+        print("Brak zamówionych dań")
+
+    if extras:
+        print("\nDodatkowe opcje:")
+        for key, value in extras.items():
+            print(f" - {key.replace("_", " ").capitalize()}: {value}")
+    else:
+        print(f"\nBrak dodatkowych opcji")
+
+    print("Zamówienie zostało przyjęte")
+
+
+create_order("Anna", "Pizza Margerita")
+create_order("Tomek", "Pizza Margerita", napoj="Cola")
+create_order("Marta", "Burger", "Frytki", "Sałatka")
+# Zamowienie dla Anna
+# Zamówienie dnia:
+#  - Pizza Margerita
+#
+# Brak dodatkowych opcji
+# Zamówienie zostało przyjęte
+# Zamowienie dla Tomek
+# Zamówienie dnia:
+#  - Pizza Margerita
+#
+# Dodatkowe opcje:
+#  - Napoj: Cola
+# Zamówienie zostało przyjęte
+# Zamowienie dla Marta
+# Zamówienie dnia:
+#  - Burger
+#  - Frytki
+#  - Sałatka
+#
+# Brak dodatkowych opcji
+# Zamówienie zostało przyjęte
+#
+# Process finished with exit code 0
+
+# create_order() # TypeError: create_order() missing 1 required positional argument: 'client_name'
