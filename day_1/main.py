@@ -16,3 +16,7 @@ if __name__ == '__main__':
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/
 # pip install uv
 # 2x shift - wyszukiwarka
+# wheel
+# theme
+# (PythonZaawansowane-23-06-2025) PS C:\Users\CSComarch\PycharmProjects\PythonZaawansowane-23-06-2025> python .\day_1\main.py
+# Hi, PyCharm
