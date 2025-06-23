@@ -1,6 +1,7 @@
 # dekorator mierzący czas i  logujący dane
+import operator
 import time
-from functools import wraps
+from functools import wraps, partial
 
 
 def log_and_time(func):
@@ -20,3 +21,85 @@ def log_and_time(func):
 
     return wrapper
 
+
+@log_and_time
+def compute_sum(a, b):
+    time.sleep(1)  # zatrzymanie na 1 s
+    return a + b
+
+
+@log_and_time
+def slow_multiply(a, b):
+    time.sleep(2)
+    return a * b
+
+
+@log_and_time
+def sleep_2s():
+    time.sleep(2)
+
+
+compute_sum(10, 20)  # [LOG] Czas wykonania: 1.0010 sekundy
+slow_multiply(a=7, b=8)
+#
+# [LOG] Wywołąnie funkcji: compute_sum
+# [LOG] Argumenty: (10, 20), Argumenty nazwane: {}
+# [LOG] Wynik: 30
+# [LOG] Czas wykonania: 1.0003 sekundy
+#
+# [LOG] Wywołąnie funkcji: slow_multiply
+# [LOG] Argumenty: (), Argumenty nazwane: {'a': 7, 'b': 8}
+# [LOG] Wynik: 56
+# [LOG] Czas wykonania: 2.0006 sekundy
+
+sleep_2s()
+# [LOG] Wywołąnie funkcji: sleep_2s
+# [LOG] Argumenty: (), Argumenty nazwane: {}
+# [LOG] Wynik: None
+# [LOG] Czas wykonania: 2.0001 sekundy
+lista2 = list(range(10_000_000))
+
+
+@log_and_time
+def my_for():
+    l = []
+    for i in lista2:
+        l.append(i * 2)
+
+
+@log_and_time
+def my_for_list_comprehensions():
+    l = [i * 2 for i in lista2]
+
+
+@log_and_time
+def my_for_map():
+    l_map = list(map(lambda x: x * 2, lista2))
+
+@log_and_time
+def my_for_map_operator():
+    l_map = list(map(partial(operator.mul, 2), lista2))
+
+my_for()
+# [LOG] Wywołąnie funkcji: my_for
+# [LOG] Argumenty: (), Argumenty nazwane: {}
+# [LOG] Wynik: None
+# [LOG] Czas wykonania: 0.0799 sekundy
+
+my_for_list_comprehensions()
+# [LOG] Wywołąnie funkcji: my_for_list_comprehensions
+# [LOG] Argumenty: (), Argumenty nazwane: {}
+# [LOG] Wynik: None
+# [LOG] Czas wykonania: 0.0682 sekundy
+
+my_for_map()
+# [LOG] Wywołąnie funkcji: my_for_map
+# [LOG] Argumenty: (), Argumenty nazwane: {}
+# [LOG] Wynik: None
+# [LOG] Czas wykonania: 1.0990 sekundy
+
+my_for_map_operator()
+# [LOG] Wywołąnie funkcji: my_for_map_operator
+# [LOG] Argumenty: (), Argumenty nazwane: {}
+# [LOG] Wynik: None
+# [LOG] Czas wykonania: 0.8812 sekundy
