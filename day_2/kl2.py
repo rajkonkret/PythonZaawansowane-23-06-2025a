@@ -1,6 +1,6 @@
 class BankAccount:
     def __init__(self, owner, balance):
-        self.owner = owner
+        self.owner = owner # self - obiekt klasy
         self._balance = balance
 
     @property  # getter
