@@ -12,7 +12,7 @@ def process_documents(docs: List[str], analisys_fn: Callable[[str], Dict[str, in
     :param analisys_fn:
     :return:
     """
-    aggregate_counter = Counter()
+    aggregate_counter: Dict[str, int] = Counter()
     for doc in docs:
         result = analisys_fn(doc)
         aggregate_counter.update(result)
@@ -41,3 +41,20 @@ def keyword_sentence_count(text: str, keyword: str = "text") -> Dict[str, int]:
     sentences = re.split(f'[.!?]', text)
     count = sum(1 for sentence in sentences if keyword.lower() in sentence.lower())
     return {keyword: count}
+
+
+documents = [
+    "This is a sample document with some sample text and additional sample data. Big text",
+    "Another document, which contains different text and information from the first one.",
+    "Text mining and natural language processing are interesting fields. My text"
+]
+
+result = process_documents(documents, word_frequency_analisys)  # przekazujemy adres funkcji
+print(result)
+
+analisys_with_keyword = partial(keyword_sentence_count, keyword="text")
+keyword_result = process_documents(documents, analisys_with_keyword)
+
+print(keyword_result)
+# mypy
+# mypy .\analiza_dokumentu.py
