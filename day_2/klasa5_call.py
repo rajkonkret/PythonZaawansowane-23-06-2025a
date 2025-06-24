@@ -1,4 +1,6 @@
 import datetime
+
+
 # obiekt klasy stał się funkcją
 
 class Greeting:
