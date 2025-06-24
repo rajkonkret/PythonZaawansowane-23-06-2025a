@@ -1,0 +1,5 @@
+documents = [
+    "This is a sample document with some sample text and additional sample data. Big text",
+    "Another document, which contains different text and information from the first one.",
+    "Text mining and natural language processing are interesting fields. My text"
+]
