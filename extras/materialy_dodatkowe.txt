@@ -123,3 +123,4 @@ https://pl.altapps.net/soft/hackerrank-com
 uv pip freeze > requirements.txt
 uv pip sync .\requirements.txt
  pyinstaller --onefile .\gra_w_kolory.py
+nuitka --onefile .\gra_w_kolory.py
